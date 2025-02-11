@@ -1,0 +1,24 @@
+package com.curso.javanauta.agendador.tarefas.controller;
+
+import com.curso.javanauta.agendador.tarefas.business.TarefasService;
+import com.curso.javanauta.agendador.tarefas.business.dto.TarefasDTO;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/tarefas")
+@RequiredArgsConstructor
+public class TarefasController {
+
+    @Autowired
+    private TarefasService tarefasService;
+
+    @PostMapping
+    public ResponseEntity<TarefasDTO> gravarTarefas(@RequestBody TarefasDTO dto,
+                                                    @RequestHeader("Authorization")String token){
+        return ResponseEntity.ok(tarefasService.gravarTarefa(token, dto));
+    }
+}
